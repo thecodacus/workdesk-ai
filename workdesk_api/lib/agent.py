@@ -1,6 +1,5 @@
 import os
 from langchain import PromptTemplate
-os.environ["OPENAI_API_KEY"] = "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"
 
 from langchain.vectorstores import Chroma 
 from langchain.embeddings import OpenAIEmbeddings 
