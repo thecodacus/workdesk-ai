@@ -1,3 +1,6 @@
 data/**
 .venv/**
 .DS_Store
+
+.space
+Spacefile
