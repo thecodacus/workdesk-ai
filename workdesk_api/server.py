@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 # make directory "./db" if not exist
-dataPath="data"
+dataPath="./data"
 if not os.path.exists(dataPath):
     os.mkdir(dataPath)
 
@@ -142,7 +142,7 @@ async def update_document_by_id(id,request: Request):
     return {'id':id}
 
 @api_app.get("/projects/{project_id}/digest")
-async def digest_documents(project_id):
+async def digest_documents(project_id,request:Request):
     query=Query()
     project=projectDB.search(query.id==project_id) 
     print("searching for project in db")
@@ -154,7 +154,7 @@ async def digest_documents(project_id):
     if os.path.exists(chromadbPath):
         shutil.rmtree(chromadbPath)
     docManager= DocumentManager(dbPath=chromadbPath,documentPath=docPath)
-    docManager.loadDocs()
+    docManager.loadDocs(api_key=request.headers['openai-api-key'])
 
 @api_app.post("/projects/{project_id}/qa")
 async def get_answer(project_id:str,request: Request):
@@ -165,9 +165,9 @@ async def get_answer(project_id:str,request: Request):
     if(len(project)==0):
         return {'error':'project not found'}
     
-    print("searching for project in db")
-    
+    api_key=request.headers['openai-api-key']
     data=await request.json()
+
     model_name=data['parameters']['modelName']
     temperature=data['parameters']['temperature']
     qaType=data['parameters']['answerMethod']
@@ -176,10 +176,17 @@ async def get_answer(project_id:str,request: Request):
     docPath=f"{dataPath}/docs/{project_id}"
     chromadbPath=f"{chromadbBasePath}/{project_id}"
     docManager= DocumentManager(dbPath=chromadbPath,documentPath=docPath)
-    retriever=docManager.getRetriever(k_count=sourceMatchCount)
+    retriever=docManager.getRetriever(api_key=api_key, k_count=sourceMatchCount)
     
     agent=AgentManager()
-    return agent.get_answer(retriever=retriever,question=data['question'],model_name=model_name,temperature=temperature,qaType=qaType)
+    return agent.get_answer(
+        retriever=retriever,
+        question=data['question'],
+        model_name=model_name,
+        temperature=temperature,
+        qaType=qaType, 
+        api_key=api_key
+    )
 
 
 

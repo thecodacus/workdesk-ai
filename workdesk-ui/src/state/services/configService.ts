@@ -1,12 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { RootState } from "../store"
 
-const initialState = {
-    api: {
-        host: 'localhost',
-        port: 8080,
-        ssl: false
-    },
-} as { api: { host: string, port: number, ssl?: boolean } }
+interface IConfigStore {
+    openai: {
+        apiKey: string
+    }
+}
+
+const initialState: IConfigStore = {
+    openai: {
+        apiKey: localStorage.getItem('openai-api-key') || ""
+    }
+}
 
 
 
@@ -14,10 +19,15 @@ export const configSlice = createSlice({
     name: 'config',
     initialState,
     reducers: {
-        setApiConfig: (state, action: PayloadAction<{ host: string, port: number, ssl?: boolean }>) => {
-            state.api = action.payload
+        setOpenAIApiKey: (state, action: PayloadAction<string>) => {
+            state.openai.apiKey = action.payload
+            localStorage.setItem('openai-api-key', action.payload)
         }
     },
 })
 
+export const {
+    setOpenAIApiKey
+} = configSlice.actions
 export const configReducer = configSlice.reducer
+export const selectOpenAIConfig = (state: RootState) => state.config.openai

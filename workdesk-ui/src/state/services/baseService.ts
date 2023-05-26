@@ -7,8 +7,13 @@ const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
         // By default, if we have a token in the store, let's use that for authenticated requests
         const token = (getState() as RootState).auth.token
+        const apiKey = (getState() as RootState).config.openai.apiKey
         if (token) {
             headers.set('authentication', `Bearer ${token}`)
+
+        }
+        if (apiKey) {
+            headers.set('openai-api-key', `${apiKey}`)
         }
         return headers
     },

@@ -3,6 +3,7 @@ import Home from "../../pages/Home";
 import Project from "../../pages/Project";
 import Query from "../../pages/Project/pages/Query";
 import Docs from "../../pages/Project/pages/Docs";
+import Config from "@src/pages/Project/pages/Config";
 
 export default function AppRoutes() {
 	const router = createBrowserRouter([
@@ -36,6 +37,13 @@ export default function AppRoutes() {
 							element: <Docs />,
 							handle: {
 								crumb: () => <span>Docs</span>,
+							},
+						},
+						{
+							path: ":projectId/config",
+							element: <Config />,
+							handle: {
+								crumb: () => <span>Config</span>,
 							},
 						},
 					],
