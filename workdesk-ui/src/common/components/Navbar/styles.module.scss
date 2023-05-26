@@ -1,0 +1,26 @@
+.container {
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	right: 0;
+	min-height: 3rem;
+	width: 100%;
+	padding: 0.5rem 1rem;
+	.logo {
+		text-decoration: none;
+		color: inherit;
+		// width: 1rem;
+		display: flex;
+		align-items: center;
+		width: fit-content;
+		img {
+			width: 2.5rem;
+		}
+		.logoText {
+			font-size: 1.8rem;
+			font-weight: 700;
+			padding-top: 0.5rem;
+		}
+	}
+}

@@ -1,0 +1,31 @@
+.container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: 1rem;
+	justify-content: center;
+	> * {
+		width: fit-content;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		.icon {
+			width: 8rem;
+			height: 10rem;
+			background-color: rgb(240, 247, 255);
+			border-radius: 0.3rem;
+		}
+		.name {
+			max-width: 8rem;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+			overflow-x: visible;
+		}
+		.deleteIcon {
+			position: absolute;
+			right: 0rem;
+			color: var(--chakra-colors-red-400);
+		}
+	}
+}

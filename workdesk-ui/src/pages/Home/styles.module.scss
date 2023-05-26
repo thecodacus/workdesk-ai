@@ -1,0 +1,25 @@
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	main {
+		margin: auto;
+		margin-top: 3rem;
+		margin-bottom: 3rem;
+		width: 50vw;
+		overflow-y: scroll;
+		.divider {
+			display: flex;
+			justify-content: space-between;
+			* {
+				// height: fit-content;
+				align-self: center;
+			}
+			padding-bottom: 10px;
+			border-bottom: solid thin gray;
+			margin-bottom: 2rem;
+			margin-top: 1rem;
+		}
+	}
+}

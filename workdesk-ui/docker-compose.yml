@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  webapp:
+    build: .
+    depends_on:
+      - vectorDb
+    ports:
+      - "5173:80"
+  
+  vectorDb:
+    image: chromadb/chroma
+    ports:
+      - "8000:8080"
+      

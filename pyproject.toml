@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "workdesk-api"
+version = "0.1.0"
+description = ""
+authors = ["Anirban Kar <thecodacus@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+packages = [{include = "workdesk_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.2"
+pydantic = "^1.10.8"
+uvicorn = "^0.22.0"
+streamlit = "^1.22.0"
+chromadb ="0.3.25"
+tinydb = "^4.7.1"
+python-multipart = "^0.0.6"
+langchain = "^0.0.180"
+openai = "^0.27.7"
+tiktoken = "^0.4.0"
+pypdf = "^3.9.0"
+jinja2 = "^3.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

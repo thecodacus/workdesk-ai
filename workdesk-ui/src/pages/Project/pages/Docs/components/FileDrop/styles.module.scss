@@ -1,0 +1,16 @@
+.container {
+	align-self: center;
+	.dropzone {
+		padding: 2rem;
+		border-style: dashed;
+		border-width: medium;
+		border-radius: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		button {
+			width: 100%;
+		}
+	}
+}

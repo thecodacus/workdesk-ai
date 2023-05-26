@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding-bottom: 1rem;
+	.sidemenu {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+	.chatItem {
+		overflow-y: scroll;
+		.content {
+			.sources {
+				display: flex;
+				margin-top: 1rem;
+				gap: 1rem;
+				position: relative;
+			}
+		}
+	}
+}
