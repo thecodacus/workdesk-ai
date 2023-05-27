@@ -8,14 +8,33 @@
 		top: 1rem;
 		right: 1rem;
 	}
-	.chatItem {
+	.chatItems {
 		overflow-y: scroll;
-		.content {
-			.sources {
-				display: flex;
-				margin-top: 1rem;
-				gap: 1rem;
-				position: relative;
+		.chatItem {
+			display: grid;
+			grid-template-columns: 4rem 1fr;
+			.avatar {
+				padding-top: 0px;
+			}
+			.content {
+				.sources {
+					display: flex;
+					margin-top: 1rem;
+					gap: 1rem;
+					position: relative;
+					.sourceContent {
+						display: flex;
+						flex-direction: column;
+						gap: 1rem;
+						.name {
+							// padding-top: 1rem;
+						}
+						.text {
+							max-height: 15rem;
+							overflow-y: auto;
+						}
+					}
+				}
 			}
 		}
 	}

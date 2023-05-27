@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useGetProjectQuery } from "../../../../state/services/projectsService";
 import styles from "./styles.module.scss";
-import { Box, Container, Icon, IconButton, Input, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Tag, TagLabel } from "@chakra-ui/react";
+import { Avatar, Box, Container, Icon, IconButton, Input } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { query, resetChat, selectChatMessages, selectChatParameters, useGetAnswerMutation } from "@src/state/services/queryService";
 import { useRef } from "react";
 import { MdOutlineCleaningServices } from "react-icons/md";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 import SideMenu from "./components/SideMenu";
+import SourceTag from "./components/SourceTag";
 export default function Query() {
 	let { projectId } = useParams();
 	if (!projectId) return <div>invalid Project</div>;
@@ -41,11 +41,11 @@ export default function Query() {
 			<div className={styles.sidemenu}>
 				<SideMenu />
 			</div>
-			<Box w="100%" flex={1} p={4} className={styles.chatItem}>
+			<Box w="100%" flex={1} p={4} className={styles.chatItems}>
 				{messages.map((message, i) => {
 					return (
-						<Box w="100%" p={4} key={i}>
-							<div className={styles.avatar}>{message.role}</div>
+						<Box w="100%" p={4} key={i} className={styles.chatItem}>
+							<div className={styles.avatar}>{message.role == "AI" ? <Avatar name={message.role} src="/img/common/logo1.png" /> : <Avatar bg={"cyan.600"} />}</div>
 							<div className={styles.content}>
 								<div className={styles.message}>{message.message}</div>
 								{message.source_documents && (
@@ -57,23 +57,14 @@ export default function Query() {
 												filenameShort = filename.substring(0, 8) + "..." + filename.slice(-8);
 											}
 											return (
-												<Tag key={i} style={{ position: "relative" }}>
-													<Popover>
-														<PopoverTrigger>
-															<Icon as={AiOutlineInfoCircle} />
-														</PopoverTrigger>
-														<PopoverContent>
-															<PopoverArrow />
-															<PopoverCloseButton />
-															<PopoverHeader>Page Content</PopoverHeader>
-															<PopoverBody>
-																<div>Source File :{filename}</div>
-																<div className="content">{doc.page_content}</div>
-															</PopoverBody>
-														</PopoverContent>
-													</Popover>
-													<TagLabel>{filenameShort}</TagLabel>
-												</Tag>
+												<SourceTag tagLabel={filenameShort}>
+													<div className={styles.sourceContent}>
+														<div className={styles.name}>
+															<b>Source File: {filename}</b>
+														</div>
+														<div className={styles.text}>{doc.page_content}</div>
+													</div>
+												</SourceTag>
 											);
 										})}
 									</div>

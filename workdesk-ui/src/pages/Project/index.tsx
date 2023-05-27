@@ -27,7 +27,7 @@ export default function Project() {
 				></Sidebar>
 			</aside>
 			<main>
-				<Container>
+				<Container style={{ position: "absolute", left: 0, right: 0 }}>
 					{(!apiKey || apiKey == "") && (
 						<Alert status="error">
 							<AlertIcon />

@@ -1,15 +1,13 @@
-FROM python:3-slim
-RUN pip install poetry
+FROM python:3.10-slim
 WORKDIR /app
 
 COPY poetry.lock .
 COPY pyproject.toml .
-RUN poetry config virtualenvs.create false
-
+RUN export HNSWLIB_NO_NATIVE=1
 COPY . .
+RUN export HNSWLIB_NO_NATIVE=1 && pip install .
 
-RUN poetry install
-RUN poetry shell
+
 
 EXPOSE 8000
 # 

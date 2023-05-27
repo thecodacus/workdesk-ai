@@ -1,0 +1,14 @@
+.arrow {
+	position: absolute;
+	content: "";
+	width: 10px;
+	height: 10px;
+	transform: translate(100%, -55%) rotate(45deg);
+	background: #2e3748;
+	z-index: 1;
+	border: none;
+	border-top: solid;
+	border-left: solid;
+	border-color: #505564;
+	border-width: thin;
+}
