@@ -3,7 +3,7 @@
 ## Overview
 Workdesk AI is a powerful document analysis tool that leverages the state-of-the-art Retrieval Augmented Generation (RAG) method to facilitate intelligent question generation and answering. With Workdesk AI, you can upload your documents and utilize advanced AI algorithms to ask questions related to the content of those documents. Whether you're a student, researcher, or professional, this tool can significantly enhance your document analysis and understanding process.
 
-![Workdesk AI Screenshot](screenshots/demo-chat.png)
+![Workdesk AI Screenshot](/screenshots/demo-chat.png?raw=true "Chat Interface")
 
 ## Key Features
 - **Document Analysis**: Upload documents in various formats, including PDF, Word, and plain text, for comprehensive analysis.
