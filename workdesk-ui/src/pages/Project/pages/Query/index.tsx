@@ -57,7 +57,7 @@ export default function Query() {
 												filenameShort = filename.substring(0, 8) + "..." + filename.slice(-8);
 											}
 											return (
-												<SourceTag tagLabel={filenameShort}>
+												<SourceTag key={i} tagLabel={filenameShort}>
 													<div className={styles.sourceContent}>
 														<div className={styles.name}>
 															<b>Source File: {filename}</b>
