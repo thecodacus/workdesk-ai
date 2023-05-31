@@ -1,13 +1,11 @@
 FROM python:3.10-slim
 WORKDIR /app
+# build essential is needed for installing chromadb dependency hnswlib
+RUN apt-get update && apt-get install build-essential -y 
 
-COPY poetry.lock .
-COPY pyproject.toml .
-RUN export HNSWLIB_NO_NATIVE=1
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 COPY . .
-RUN export HNSWLIB_NO_NATIVE=1 && pip install .
-
-
 
 EXPOSE 8000
 # 
