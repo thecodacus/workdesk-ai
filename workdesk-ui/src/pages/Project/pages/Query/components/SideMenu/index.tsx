@@ -79,7 +79,7 @@ export default function SideMenu() {
 						<FormControl pb={6}>
 							<FormLabel>Temperature</FormLabel>
 							<Box pt={7} pb={2}>
-								<Slider aria-label="slider-ex-4" defaultValue={20} onChange={(val) => setTempValue(val)}>
+								<Slider aria-label="slider-ex-4" defaultValue={tempValue} onChange={(val) => setTempValue(val)}>
 									<SliderMark value={0} {...labelStyles}>
 										0%
 									</SliderMark>
@@ -102,7 +102,7 @@ export default function SideMenu() {
 						{/* Answer Method */}
 						<FormControl pb={6}>
 							<FormLabel>Answer Method</FormLabel>
-							<Select defaultValue={AnswerMethod.STUFF} onChange={(val) => setAnsMethod(val.currentTarget.value as AnswerMethod)}>
+							<Select defaultValue={ansMethod} onChange={(val) => setAnsMethod(val.currentTarget.value as AnswerMethod)}>
 								<option value={AnswerMethod.STUFF}>Stuff (Fastest)</option>
 								<option value={AnswerMethod.MAP_REDUCE}>Map Reduce (Balanced)</option>
 								<option value={AnswerMethod.REFINE}>Refine (Best results - Slow)</option>
@@ -113,7 +113,7 @@ export default function SideMenu() {
 						<FormControl pb={6}>
 							<FormLabel>Source Match Count (K)</FormLabel>
 							<Box pt={7} pb={2}>
-								<Slider aria-label="slider-ex-4" defaultValue={2} max={10} min={1} onChange={(val) => setSourceCount(val)}>
+								<Slider aria-label="slider-ex-4" defaultValue={sourceCount} max={10} min={1} onChange={(val) => setSourceCount(val)}>
 									<SliderMark value={1} {...labelStyles}>
 										1
 									</SliderMark>

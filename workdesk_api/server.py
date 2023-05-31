@@ -177,11 +177,12 @@ async def get_answer(project_id:str,request: Request):
     chromadbPath=f"{chromadbBasePath}/{project_id}"
     docManager= DocumentManager(dbPath=chromadbPath,documentPath=docPath)
     retriever=docManager.getRetriever(api_key=api_key, k_count=sourceMatchCount)
-    
+    # retriever()
     agent=AgentManager()
     return agent.get_answer(
         retriever=retriever,
         question=data['question'],
+        messages=data['messages'],
         model_name=model_name,
         temperature=temperature,
         qaType=qaType, 

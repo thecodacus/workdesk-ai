@@ -1,5 +1,18 @@
-.App{
-  position: relative;
-  max-height: 100vh;
-  height: 100vh;
+.App {
+	position: relative;
+	max-height: 100vh;
+	height: 100vh;
+}
+pre {
+	// padding: none;
+	// background-color: black;
+	position: relative;
+	border-radius: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	box-sizing: content-box;
+	> * {
+		margin: 0 !important;
+	}
 }

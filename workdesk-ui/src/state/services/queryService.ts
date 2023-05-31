@@ -4,20 +4,24 @@ import { baseService } from './baseService'
 import { RootState } from '../store'
 
 interface IAnswerResponse {
-    query: string,
-    result: string,
+    question?: string,
+    answer?: string,
+    query?: string,
+    result?: string,
     source_documents: {
         metadata: { source: string }
         page_content: string
     }[]
+    chat_history?: string[]
+
 }
 
 export const queryService = baseService.injectEndpoints({
     endpoints: (build) => ({
-        getAnswer: build.mutation<IAnswerResponse, { projectId: string, question: string, parameters: IChatParameters }>({
-            query: ({ projectId, question, parameters }) => ({
+        getAnswer: build.mutation<IAnswerResponse, { projectId: string, question: string, parameters: IChatParameters, messages: IChat[] }>({
+            query: ({ projectId, question, parameters, messages }) => ({
                 url: `/projects/${projectId}/qa`,
-                body: { question, parameters },
+                body: { question: `${question}\n: Note if writing code in markdown, remember  to tag the programming language`, parameters, messages },
                 method: "POST"
             }),
         })
@@ -32,7 +36,8 @@ export const {
     endpoints: { getAnswer },
 } = queryService
 
-interface IChat {
+
+export interface IChat {
     role: string,
     message: string,
     source_documents?: {
@@ -40,6 +45,8 @@ interface IChat {
         page_content: string
     }[]
 }
+
+
 interface IChatParameters {
     modelName: ModelName,
     temperature: number,
@@ -57,16 +64,17 @@ export enum AnswerMethod {
     STUFF = 'stuff'
 }
 
+
 const initialState: {
     messages: IChat[]
     parameters: IChatParameters
 } = {
     messages: [],
     parameters: {
-        modelName: ModelName.GPT3_5,
-        temperature: 0.2,
-        answerMethod: AnswerMethod.STUFF,
-        sourceMatchCount: 2
+        modelName: localStorage.getItem('chat-params-model') as ModelName || ModelName.GPT3_5,
+        temperature: parseFloat(`${localStorage.getItem('chat-params-temperature') || 0.2}`),
+        answerMethod: localStorage.getItem('chat-params-ans-method') as AnswerMethod || AnswerMethod.STUFF,
+        sourceMatchCount: parseFloat(`${localStorage.getItem('chat-params-k') || 2}`),
     }
 }
 
@@ -83,16 +91,20 @@ export const chatStore = createSlice({
         },
         setModel: (state, action: PayloadAction<ModelName>) => {
             state.parameters.modelName = action.payload
+            localStorage.setItem('chat-params-model', action.payload)
         },
         setTemperature: (state, action: PayloadAction<number>) => {
             state.parameters.temperature = action.payload
+            localStorage.setItem('chat-params-temperature', `${action.payload}`)
 
         },
         setAnswerMethod: (state, action: PayloadAction<AnswerMethod>) => {
             state.parameters.answerMethod = action.payload
+            localStorage.setItem('chat-params-ans-method', `${action.payload}`)
         },
         setSourceMatchCount: (state, action: PayloadAction<number>) => {
             state.parameters.sourceMatchCount = action.payload
+            localStorage.setItem('chat-params-k', `${action.payload}`)
         }
     },
     extraReducers: (builder) => {
@@ -104,7 +116,7 @@ export const chatStore = createSlice({
                 console.log('fulfilled', action)
                 state.messages.push({
                     role: "AI",
-                    message: action.payload.result,
+                    message: action.payload.result || action.payload.answer || "",
                     source_documents: action.payload.source_documents
 
                 })
