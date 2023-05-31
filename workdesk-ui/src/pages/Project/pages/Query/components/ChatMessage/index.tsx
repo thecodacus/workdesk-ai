@@ -36,6 +36,8 @@ export default function ChatMessage({ message, isLoading }: IProps) {
 										<>
 											<IconButton
 												onClick={(e) => {
+													e.preventDefault();
+													e.stopPropagation();
 													copyCode(String(children).replace(/\n$/, ""));
 												}}
 												className={styles.copyBtn}

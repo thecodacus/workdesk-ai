@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useGetProjectQuery } from "../../../../state/services/projectsService";
 import styles from "./styles.module.scss";
 import { Box, Container, Icon, IconButton, Input } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
