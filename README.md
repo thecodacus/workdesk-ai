@@ -49,6 +49,12 @@ python -m venv venv
 source venv/bin/activate
 ```
 
+4.1 for Windows use below command
+
+```shell
+.venv\Scripts\activate.bat
+```
+
 5. Install the required dependencies:
 
 ```shell
